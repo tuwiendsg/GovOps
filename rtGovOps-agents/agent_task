@@ -1,0 +1,1 @@
+* * * * * /usr/share/provi-agent/agent.sh >> /usr/share/provi-agent/cron_log 2>&1

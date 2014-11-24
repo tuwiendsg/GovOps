@@ -1,0 +1,52 @@
+@(artifact: Option[models.Artifact], releases: Seq[models.Release])
+
+@import controllers.routes.WebUI
+
+@if(releases.isEmpty) {
+  <p class="bg-danger">
+    @if(artifact.isEmpty) {
+      Unknown artifact!
+    } else {
+      No releases for @artifact.get.name!
+    }
+  </p>
+} else {
+  <div class="form-group">
+    @for(release <- releases) {
+      <div class="radio">
+        <label>
+          <input type="radio" name="version" value="@release.version">
+          @release.version
+        </label>
+      </div>
+    }
+  </div>
+}
+
+<script>
+  $(document).ready(function() {
+    var dependencies = $('#dependencies');
+    dependencies.hide();
+
+    var deploy = $("#deploy");
+    deploy.show();
+    deploy.attr("disabled", "disabled");
+
+    $("input[name='version']").change(function(){
+      var artifact = $("input[name='artifact']:checked").val();
+      var version = $(this).val();
+      if (artifact && version) {
+        var url = '@WebUI.dependencies("", Version(0))';
+        dependencies.load(url.substring(0, url.length-4) + artifact + '/' + version, function(response, status) {
+          if (status == 'success') dependencies.show();
+        });
+      } else {
+        dependencies.hide();
+      }
+
+      if ($("input[name='device']:checked").val()) {
+        deploy.removeAttr("disabled");
+      }
+    });
+  })
+</script>

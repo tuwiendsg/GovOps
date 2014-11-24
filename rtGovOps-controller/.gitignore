@@ -1,0 +1,9 @@
+.metadata
+.classpath
+.project
+.settings
+
+git.bat
+*.pem
+*.war
+*.zip

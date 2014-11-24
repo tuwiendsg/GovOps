@@ -1,0 +1,1 @@
+scp -i pc3l-cloud.pem -r src target gateway-scripts pom.xml ubuntu@128.130.172.231:/home/ubuntu/manager/

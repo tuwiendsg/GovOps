@@ -1,0 +1,27 @@
+#cloud-config
+
+coreos:
+  etcd:
+    # generate a new token for each unique cluster from https://discovery.etcd.io/new
+    discovery: https://discovery.etcd.io/309156bec4351ce7c4e7111053b9dc64
+    # multi-region and multi-cloud deployments need to use $public_ipv4
+    addr: $private_ipv4:4001
+    peer-addr: $private_ipv4:7001
+  units:
+    - name: etcd.service
+      command: start
+    - name: fleet.service
+      command: start
+  write_files:
+    - path: /etc.fleet/fleet.conf
+	  content: |
+        public-ip="$private_ipv4"
+        metadata="region=europe,public_ip=$public_ipv4,type=controller"
+        engine_reconcile_interval=6
+
+
+	  
+
+ssh_authorized_keys:
+  # include one or more SSH public keys if you want
+	- ssh-rsa ......

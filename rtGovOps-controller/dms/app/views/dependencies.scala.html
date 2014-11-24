@@ -1,0 +1,20 @@
+@(release: Option[models.Release])
+
+@if(release.isEmpty) {
+  <p class="bg-danger">
+    Unknown release!
+  </p>
+} else {
+  @defining(release.get.dependencies) { dependencies =>
+    @if(dependencies.isEmpty) {
+      No dependencies for @release.get.artifact.name
+    } else {
+      Dependencies:
+      <ul>
+        @for(dependency <- dependencies) {
+          <li><strong>@dependency.artifact.name</strong>: @dependency.check</li>
+        }
+      </ul>
+    }
+  }
+}

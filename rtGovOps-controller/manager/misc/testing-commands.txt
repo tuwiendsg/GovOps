@@ -1,0 +1,8 @@
+# Command(s) to invoke DeviceManager and add device-update via curl
+
+curl -v -k -f --header "Content-Type: multipart/form-data" --form "file=@manager/src/main/resources/sd-image/image.zip;type=application/zip" -X POST http://128.130.172.231:8080/sdg/device-manager/update/00:60:0C:81:71:F3/d05e6161-7080-4fb1-9027-bd43f2c894df
+curl -v -k -f --header "Content-Type: multipart/form-data" --form "file=@manager/src/main/resources/sd-image/image2.zip;type=application/zip" -X POST http://128.130.172.231:8080/sdg/device-manager/update/00:60:0C:81:71:F3/e05e6161-7080-4fb1-9027-bd43f2c894dg
+
+# Command to invoke POST-method on Device-Manager and send contents of 'test.out'
+
+wget -O - http://<SERVER-IP>:8080/sdg/device-manager/test --post-data "`cat test.out`"

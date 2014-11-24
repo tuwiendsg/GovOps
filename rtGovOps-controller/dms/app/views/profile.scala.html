@@ -1,0 +1,9 @@
+@(device: Either[String, models.Device])
+
+<p>
+@if(device.isRight) {
+  @Html(device.right.get.profile.replaceAll("\n", "<br>"))
+} else {
+  <strong>Error!</strong> @device.left.get
+}
+</p>

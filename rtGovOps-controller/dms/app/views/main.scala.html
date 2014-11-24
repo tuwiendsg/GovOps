@@ -1,0 +1,65 @@
+@(title: String)(content: Html)(implicit flash: Flash)
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>@title</title>
+      <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+      <!-- jQuery -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+      <!-- Bootstrap -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="page-header">
+        <div class="row"><div class="col-md-offset-3 col-md-6">
+          @defining(flash.get("success")) { success =>
+            @if(success.isDefined) {
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong>Success!</strong> @success.get
+              </div>
+            }
+          }
+        </div></div>
+        <div class="row"><div class="col-md-offset-3 col-md-6">
+          @defining(flash.get("info")) { info =>
+            @if(info.isDefined) {
+              <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong>Info!</strong> @info.get
+              </div>
+            }
+          }
+        </div></div>
+        <div class="row"><div class="col-md-offset-3 col-md-6">
+          @defining(flash.get("error")) { error =>
+            @if(error.isDefined) {
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong>Error!</strong> @error.get
+              </div>
+            }
+          }
+        </div></div>
+
+        <h1 class="text-center">@title</h1>
+      </div>
+
+      @content
+    </div>
+  </body>
+</html>

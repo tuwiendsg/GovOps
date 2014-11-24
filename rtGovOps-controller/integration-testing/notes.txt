@@ -1,0 +1,19 @@
+# In the following the commands to test the chain of components
+
+# in case you want to register device manually
+
+curl -X GET http://localhost:8080/SDGBalancer/balancer/assign/device1
+
+curl -X GET http://localhost:8080/SDGManager/device-manager/update/device1
+
+# commonds to provision 50 devices
+
+curl -X GET http://localhost:8080/SDGBalancer/balancer/provision/50/sedona-vm/1_2_28
+
+curl -X GET http://localhost:8080/SDGBalancer/balancer/provisioning/finished
+
+curl -X GET http://localhost:8080/SDGBalancer/balancer/provisioning/logs
+
+curl -X GET http://localhost:8080/SDGBalancer/balancer/provisioning/statistic
+
+curl -X GET http://localhost:8080/SDGBalancer/balancer/provisioning/clean

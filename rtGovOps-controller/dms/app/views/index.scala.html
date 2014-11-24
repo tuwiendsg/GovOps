@@ -1,0 +1,76 @@
+@(devices: Seq[models.Device], artifacts: Seq[models.Artifact])(implicit flash: Flash)
+
+@import controllers.routes.WebUI
+
+@main("SD Gateway Artifact Deployment") {
+  <form role="form" action="@WebUI.deploy" method="POST"><div class="row">
+    <div class="col-md-4"><div class="panel panel-default">
+      <div class="panel-heading">Devices</div>
+      <div class="panel-body"><div class="form-group">
+        @for(device <- devices) {
+          <div class="radio">
+            <label>
+              <input type="radio" name="device" value="@device.mac">
+              @device.name
+            </label>
+          </div>
+        }
+      </div></div>
+      <div id="profile" class="panel-footer"></div>
+    </div></div>
+
+    <div class="col-md-4"><div class="panel panel-default ">
+        <div class="panel-heading">PCS Artifact Repository</div>
+        <div class="panel-body"><div class="form-group">
+          @for(artifact <- artifacts) {
+            <div class="radio">
+              <label>
+                <input type="radio" name="artifact" value="@artifact.name">
+                @artifact.name
+              </label>
+            </div>
+          }
+        </div></div>
+    </div></div>
+
+    <div class="col-md-4"><div class="panel panel-default">
+      <div class="panel-heading">Releases</div>
+      <div class="panel-body">
+        <div id="versions"></div>
+        <button type="submit" id="deploy" class="btn btn-success btn-block" disabled="disabled">Deploy</button>
+      </div>
+      <div id="dependencies" class="panel-footer"></div>
+    </div></div>
+  </div></form>
+
+  <script>
+    $(document).ready(function() {
+      var profile = $('#profile');
+      profile.hide();
+
+      $('#dependencies').hide();
+
+      var deploy = $("#deploy");
+      deploy.hide();
+
+      $("input[name='device']").change(function(){
+        var mac = $(this).val();
+        if (mac) {
+          profile.load('@WebUI.profile("")' + $(this).val(), function(response, status) {
+            if (status == 'success') profile.show();
+          });
+        } else {
+          profile.hide();
+        }
+
+        if ($("input[name='version']:checked").val()) {
+          deploy.removeAttr("disabled");
+        }
+      });
+
+      $("input[name='artifact']").change(function(){
+        $('#versions').load('@WebUI.versions("")' + $(this).val());
+      });
+    })
+  </script>
+}
