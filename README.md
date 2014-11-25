@@ -12,4 +12,4 @@ For furter information or any kind of issues please conntact [Stefan Nastic][1] 
 
 
   [1]:http://dsg.tuwien.ac.at/staff/snastic/
-  [2]:https://github.com/tuwiendsg/GovOps/wiki
+  [2]:https://github.com/tuwiendsg/GovOps/wiki/Overview-of-the-rtGovOps-framework
