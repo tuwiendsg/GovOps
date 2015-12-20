@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE="/usr/share/cgi-bin/capabilities"
+BASE="/usr/lib/cgi-bin/capabilities"
 
 log(){
 

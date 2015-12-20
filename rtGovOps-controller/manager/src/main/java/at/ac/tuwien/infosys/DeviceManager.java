@@ -172,26 +172,29 @@ public class DeviceManager {
 			return new ResponseEntity<byte[]>("Nothing to update!".getBytes(),
 					HttpStatus.OK);
 		}
-
-		try {
-			InputStream updateImage = deviceStore.getUpdate(id);
-
-			if (updateImage == null) {
-				logger.info("No update available for device!");
-				return new ResponseEntity<byte[]>(
-						"Nothing to update!".getBytes(), HttpStatus.OK);
-			}
-
-			logger.info("Update available for device!");
-
-			return new ResponseEntity<byte[]>(IOUtils.toByteArray(updateImage),
-					HttpStatus.OK);
-
-		} catch (IOException e) {
-			logger.info("No update available for device!");
-			return new ResponseEntity<byte[]>("Nothing to update!".getBytes(),
-					HttpStatus.OK);
-		}
+		
+		return new ResponseEntity<byte[]>("Nothing to update!".getBytes(),
+				HttpStatus.OK);
+		//FIXME Disable updates for local installation
+//		try {
+//			InputStream updateImage = deviceStore.getUpdate(id);
+//
+//			if (updateImage == null) {
+//				logger.info("No update available for device!");
+//				return new ResponseEntity<byte[]>(
+//						"Nothing to update!".getBytes(), HttpStatus.OK);
+//			}
+//
+//			logger.info("Update available for device!");
+//
+//			return new ResponseEntity<byte[]>(IOUtils.toByteArray(updateImage),
+//					HttpStatus.OK);
+//
+//		} catch (IOException e) {
+//			logger.info("No update available for device!");
+//			return new ResponseEntity<byte[]>("Nothing to update!".getBytes(),
+//					HttpStatus.OK);
+//		}
 	}
 
 	/**
@@ -297,6 +300,14 @@ public class DeviceManager {
 		}
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	
+	@RequestMapping(value = "/unregister/{deviceId}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> unregisterDevice(@PathVariable String deviceId) {
+		deviceStore.removeDevice(deviceId);
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+	
 	
 	@Configuration
 	public static class AsyncRestTemplateFactory {

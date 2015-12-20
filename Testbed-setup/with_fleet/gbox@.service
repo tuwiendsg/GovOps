@@ -1,0 +1,30 @@
+[Unit]
+Description=GovOps_Box_Service at %i 
+After=docker.service
+Requires=docker.service
+
+#KillMode=none
+
+# Source CoreOS environmental variables
+EnvironmentFile=/etc/environment
+
+[Service]
+TimeoutStartSec=600
+ExecStartPre=-/usr/bin/docker kill gbox.%i
+ExecStartPre=-/usr/bin/docker rm gbox.%i
+ExecStartPre=/usr/bin/docker pull progrium/busybox
+ExecStartPre=/usr/bin/docker build -t govops_box /home/core/container_scripts/
+ExecStart=/usr/bin/docker run --name gbox.%i -p ${COREOS_PUBLIC_IPV4}:%i:80 govops_box
+ExecStop=/usr/bin/docker stop gbox.%i
+
+[Install]
+WantedBy=multi-user.target
+
+[X-Fleet]
+# The [X-Fleet] section is used to set scheduling requirements for the unit
+# Don't schedule on the same machine as other Apache instances
+#X-Conflicts=gbox@%i.service #calculate mod cluster size
+# Schedule on the same machine as the associated Apache service
+# X-ConditionMachineOf=apache.1.service
+X-ConditionMachineMetadata=type=gateway-host
+

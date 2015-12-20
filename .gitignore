@@ -77,3 +77,6 @@ vendor/
 Demo-applications/ARMv5/sample-app/.settings/
 *.class
 Demo-applications/ARMv5/sample-server/.settings/
+*.ppk
+rtGovOps-controller/install/
+*.bat

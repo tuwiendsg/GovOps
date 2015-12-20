@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
+import at.ac.tuwien.infosys.monitoring.HystrixMetricsPoller;
+import at.ac.tuwien.infosys.monitoring.HystrixMetricsPoller.MetricsAsJsonPollerListener;
+
 @Configuration
 @PropertySources(value = { @PropertySource("classpath:apimanager.properties"),
 		@PropertySource("classpath:common.properties") })

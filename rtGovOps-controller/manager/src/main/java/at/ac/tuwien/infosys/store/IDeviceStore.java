@@ -51,5 +51,6 @@ public interface IDeviceStore {
 	public void removeUpdate(String deviceId, String imageId);
 	
 	public void clean();
+	public void removeDevice(String id);
 
 }

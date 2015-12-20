@@ -59,7 +59,7 @@ ARGS="$@"
 # construct EXEC_C or use components run.sh
 #else
 #Default capability mapping
-EXEC_C="/usr/share/cgi-bin/capabilities/$CID.sh $MNAME $ARGS"
+EXEC_C="/usr/lib/cgi-bin/capabilities/$CID.sh $MNAME $ARGS"
 #fi
 debug Execute $EXEC_C
 tmp=$(mktemp)

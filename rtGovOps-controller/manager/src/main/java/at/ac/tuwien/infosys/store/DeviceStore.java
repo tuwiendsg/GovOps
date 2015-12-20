@@ -181,7 +181,18 @@ public class DeviceStore implements IDeviceStore {
 	@Transactional
 	public synchronized void clean() {
 		deviceRepository.deleteAll();
+		deviceRepository.flush();
 		deviceUpdateRepository.deleteAll();
+		deviceRepository.flush();
+	}
+
+	@Transactional
+	public synchronized void removeDevice(String deviceId) {
+		if (hasDevice(deviceId)) {
+			Device device = getDevice(deviceId);
+			deviceRepository.delete(device);
+			deviceRepository.flush();
+		}
 	}
 
 }
